@@ -1,0 +1,232 @@
+=====================================
+Simple transaction with two postings
+=====================================
+
+2024-01-05 * Whole Foods
+    Expenses:Food:Groceries        $125.50
+    Assets:Checking               -$125.50
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account)
+      (amount
+        (sign)
+        (commodity)
+        (quantity)))
+    (dedent)))
+
+=====================================
+Transaction without status marker
+=====================================
+
+2024-01-12 Grocery Store
+    Expenses:Food        $98.75
+    Assets:Cash
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Transaction with pending status
+=====================================
+
+2024-01-15 ! Pending Payment
+    Liabilities:Credit Card        $50.00
+    Assets:Checking
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Transaction with code
+=====================================
+
+2024-01-20 * (CHECK-123) Rent Payment
+    Expenses:Rent              $1,500.00
+    Assets:Checking
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (code)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Transaction with effective date
+=====================================
+
+2024-01-25=2024-01-26 * Payment
+    Expenses:Utilities        $85.40
+    Assets:Checking
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (effective_date
+        (date))
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Transaction with commodity on right
+=====================================
+
+2024-01-31 * Salary
+    Assets:Checking           5000.00 USD
+    Income:Salary
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (quantity)
+        (commodity)))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Transaction with comment
+=====================================
+
+2024-02-01 * Groceries  ; weekly shopping
+    Expenses:Food        $50
+    Assets:Cash
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description)
+      (comment))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Multiple transactions
+=====================================
+
+2024-01-01 * First
+    Expenses:A        $10
+    Assets:B
+
+2024-01-02 * Second
+    Expenses:C        $20
+    Assets:D
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent))
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent)))

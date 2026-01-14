@@ -1,0 +1,466 @@
+[
+  {
+    "type": "account",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "account_directive",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "account",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "amount",
+    "named": true,
+    "fields": {
+      "commodity": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "commodity",
+            "named": true
+          }
+        ]
+      },
+      "quantity": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "quantity",
+            "named": true
+          }
+        ]
+      },
+      "sign": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "sign",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "code",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "comment_line",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "commodity",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "commodity_directive",
+    "named": true,
+    "fields": {
+      "symbol": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "commodity",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "effective_date",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "date",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "file_path",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "include_directive",
+    "named": true,
+    "fields": {
+      "path": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "file_path",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "payee_directive",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "payee_name",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "posting",
+    "named": true,
+    "fields": {
+      "account": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "account",
+            "named": true
+          }
+        ]
+      },
+      "amount": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "amount",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "account_directive",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "commodity_directive",
+          "named": true
+        },
+        {
+          "type": "include_directive",
+          "named": true
+        },
+        {
+          "type": "payee_directive",
+          "named": true
+        },
+        {
+          "type": "tag_directive",
+          "named": true
+        },
+        {
+          "type": "transaction",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tag_directive",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "tag_name",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "transaction",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "comment_line",
+          "named": true
+        },
+        {
+          "type": "dedent",
+          "named": true
+        },
+        {
+          "type": "indent",
+          "named": true
+        },
+        {
+          "type": "posting",
+          "named": true
+        },
+        {
+          "type": "transaction_header",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "transaction_header",
+    "named": true,
+    "fields": {
+      "code": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "code",
+            "named": true
+          }
+        ]
+      },
+      "date": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "date",
+            "named": true
+          }
+        ]
+      },
+      "description": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "description",
+            "named": true
+          }
+        ]
+      },
+      "effective_date": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "effective_date",
+            "named": true
+          }
+        ]
+      },
+      "status": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "status",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
+    "type": "account",
+    "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
+  },
+  {
+    "type": "commodity",
+    "named": false
+  },
+  {
+    "type": "date",
+    "named": true
+  },
+  {
+    "type": "dedent",
+    "named": true
+  },
+  {
+    "type": "description",
+    "named": true
+  },
+  {
+    "type": "include",
+    "named": false
+  },
+  {
+    "type": "indent",
+    "named": true
+  },
+  {
+    "type": "payee",
+    "named": false
+  },
+  {
+    "type": "payee_name",
+    "named": true
+  },
+  {
+    "type": "quantity",
+    "named": true
+  },
+  {
+    "type": "sign",
+    "named": true
+  },
+  {
+    "type": "status",
+    "named": true
+  },
+  {
+    "type": "tag",
+    "named": false
+  },
+  {
+    "type": "tag_name",
+    "named": true
+  }
+]

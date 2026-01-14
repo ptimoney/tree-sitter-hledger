@@ -1,0 +1,157 @@
+=====================================
+Account directive
+=====================================
+
+account Assets:Checking
+
+---
+
+(source_file
+  (account_directive
+    (account)))
+
+=====================================
+Multiple account directives
+=====================================
+
+account Assets:Checking
+account Assets:Savings
+account Expenses:Food:Groceries
+
+---
+
+(source_file
+  (account_directive
+    (account))
+  (account_directive
+    (account))
+  (account_directive
+    (account)))
+
+=====================================
+Commodity directive with symbol
+=====================================
+
+commodity $
+
+---
+
+(source_file
+  (commodity_directive
+    (commodity)))
+
+=====================================
+Commodity directive with three-letter code
+=====================================
+
+commodity EUR
+
+---
+
+(source_file
+  (commodity_directive
+    (commodity)))
+
+=====================================
+Payee directive
+=====================================
+
+payee Whole Foods
+
+---
+
+(source_file
+  (payee_directive
+    (payee_name)))
+
+=====================================
+Multiple payee directives
+=====================================
+
+payee Whole Foods
+payee Safeway
+payee Shell Gas Station
+
+---
+
+(source_file
+  (payee_directive
+    (payee_name))
+  (payee_directive
+    (payee_name))
+  (payee_directive
+    (payee_name)))
+
+=====================================
+Tag directive
+=====================================
+
+tag trip
+
+---
+
+(source_file
+  (tag_directive
+    (tag_name)))
+
+=====================================
+Include directive
+=====================================
+
+include expenses.journal
+
+---
+
+(source_file
+  (include_directive
+    (file_path)))
+
+=====================================
+Include directive with path
+=====================================
+
+include monthly/february.journal
+
+---
+
+(source_file
+  (include_directive
+    (file_path)))
+
+=====================================
+Mixed directives
+=====================================
+
+account Assets:Cash
+commodity USD
+payee Grocery Store
+tag project
+
+---
+
+(source_file
+  (account_directive
+    (account))
+  (commodity_directive
+    (commodity))
+  (payee_directive
+    (payee_name))
+  (tag_directive
+    (tag_name)))
+
+=====================================
+Directives with comments
+=====================================
+
+account Assets:Checking  ; main bank account
+payee Walmart  ; big box store
+
+---
+
+(source_file
+  (account_directive
+    (account)
+    (comment))
+  (payee_directive
+    (payee_name)
+    (comment)))

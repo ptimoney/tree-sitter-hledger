@@ -1,0 +1,24 @@
+# Node modules
+node_modules/
+package-lock.json
+
+# Build artifacts
+build/
+*.node
+
+# Generated parser files
+src/parser.c
+src/tree_sitter/
+
+# Bindings
+bindings/node/build/
+
+# OS files
+.DS_Store
+*.swp
+*.swo
+
+# IDE files
+.vscode/
+.idea/
+*.iml

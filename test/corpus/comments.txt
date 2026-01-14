@@ -1,0 +1,140 @@
+=====================================
+Line comment with semicolon
+=====================================
+
+; This is a comment
+
+---
+
+(source_file
+  (comment))
+
+=====================================
+Line comment with hash
+=====================================
+
+# Another comment
+
+---
+
+(source_file
+  (comment))
+
+=====================================
+Multiple comments
+=====================================
+
+; First comment
+; Second comment
+# Third comment
+
+---
+
+(source_file
+  (comment)
+  (comment)
+  (comment))
+
+=====================================
+Transaction with inline comment
+=====================================
+
+2024-01-05 * Groceries  ; shopping trip
+    Expenses:Food        $50  ; weekly groceries
+    Assets:Cash
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description)
+      (comment))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity))
+      (comment))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Transaction with indented comment line
+=====================================
+
+2024-01-05 * Groceries
+    ; This is a transaction-level comment
+    Expenses:Food        $50
+    Assets:Cash
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (comment)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Mix of transactions and comments
+=====================================
+
+; Header comment
+2024-01-01 * Payment
+    Expenses:A        $10
+    Assets:B
+
+; Another comment
+2024-01-02 * Second
+    Expenses:C        $20
+    Assets:D
+
+---
+
+(source_file
+  (comment)
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent))
+  (comment)
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent)))
