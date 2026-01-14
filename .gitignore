@@ -7,8 +7,9 @@ build/
 *.node
 
 # Generated parser files
-src/parser.c
-src/tree_sitter/
+# Generated parser files
+# src/parser.c
+# src/tree_sitter/
 
 # Bindings
 bindings/node/build/
