@@ -28,6 +28,37 @@ Simple transaction with two postings
         (quantity)))
     (dedent)))
 
+
+=====================================
+Account names with spaces
+=====================================
+
+2024-01-05 * Whole Foods
+    Expenses:Food:Groceries with a Space        $125.50
+    Assets:Checking               -$125.50
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account)
+      (amount
+        (sign)
+        (commodity)
+        (quantity)))
+    (dedent)))
+
 =====================================
 Transaction without status marker
 =====================================

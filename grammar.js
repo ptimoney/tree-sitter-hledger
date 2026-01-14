@@ -121,7 +121,7 @@ module.exports = grammar({
     // Account name: For MVP, simplified to not include spaces
     // This matches most common account names (e.g., Assets:Checking, Expenses:Food:Groceries)
     // Accounts with spaces (e.g., "Assets:Savings Account") can be added in future versions
-    account: $ => /[^\s;#\n]+/,
+    account: $ => /([^\s;#\n]+(\s[^;\s\n#]+)*?)/,
 
     // Amount: quantity with optional commodity
     amount: $ => choice(

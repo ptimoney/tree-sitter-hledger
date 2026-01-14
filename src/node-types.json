@@ -1,10 +1,5 @@
 [
   {
-    "type": "account",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "account_directive",
     "named": true,
     "fields": {
@@ -131,11 +126,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "file_path",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "include_directive",
@@ -405,6 +395,10 @@
   },
   {
     "type": "account",
+    "named": true
+  },
+  {
+    "type": "account",
     "named": false
   },
   {
@@ -425,6 +419,10 @@
   },
   {
     "type": "description",
+    "named": true
+  },
+  {
+    "type": "file_path",
     "named": true
   },
   {

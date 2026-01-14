@@ -18,7 +18,7 @@
 
 ; Amounts - quantities and commodities
 (quantity) @number
-(commodity_symbol) @constant
+(commodity) @constant
 
 ; Amount signs
 (sign) @operator
