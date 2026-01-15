@@ -179,18 +179,19 @@ bool tree_sitter_hledger_external_scanner_scan(
       }
     }
 
-    // Skip blank lines and lines with only comments
-    if (lexer->lookahead == '\n' || lexer->lookahead == '\r' ||
-        lexer->lookahead == ';' || lexer->lookahead == '#' ||
-        lexer->eof(lexer)) {
-      return false;
-    }
-
-    // INDENT: indentation increased
+    // INDENT: indentation increased - check BEFORE skipping comments
+    // Comment lines can be part of an indented block (e.g., inside transactions)
     if (indent_level > current && valid_symbols[INDENT]) {
       push_indent(scanner, indent_level);
       lexer->result_symbol = INDENT;
       return true;
+    }
+
+    // Skip blank lines and lines with only comments (only after INDENT check)
+    if (lexer->lookahead == '\n' || lexer->lookahead == '\r' ||
+        lexer->lookahead == ';' || lexer->lookahead == '#' ||
+        lexer->eof(lexer)) {
+      return false;
     }
 
     // DEDENT: indentation decreased (non-blank line case)

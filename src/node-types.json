@@ -13,16 +13,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "comment",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -67,19 +57,9 @@
     "fields": {}
   },
   {
-    "type": "comment_line",
+    "type": "comment",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "comment",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "commodity",
@@ -90,6 +70,26 @@
     "type": "commodity_directive",
     "named": true,
     "fields": {
+      "commodity": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "commodity",
+            "named": true
+          }
+        ]
+      },
+      "quantity": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "quantity",
+            "named": true
+          }
+        ]
+      },
       "symbol": {
         "multiple": false,
         "required": true,
@@ -97,19 +97,13 @@
           {
             "type": "commodity",
             "named": true
+          },
+          {
+            "type": "quantity",
+            "named": true
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "comment",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -141,16 +135,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "comment",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -167,16 +151,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "comment",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -268,16 +242,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "comment",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -290,10 +254,6 @@
       "types": [
         {
           "type": "comment",
-          "named": true
-        },
-        {
-          "type": "comment_line",
           "named": true
         },
         {
@@ -395,15 +355,15 @@
   },
   {
     "type": "account",
-    "named": true
-  },
-  {
-    "type": "account",
     "named": false
   },
   {
-    "type": "comment",
+    "type": "account",
     "named": true
+  },
+  {
+    "type": "comment",
+    "named": false
   },
   {
     "type": "commodity",
@@ -420,6 +380,10 @@
   {
     "type": "description",
     "named": true
+  },
+  {
+    "type": "end comment",
+    "named": false
   },
   {
     "type": "file_path",

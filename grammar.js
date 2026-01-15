@@ -7,7 +7,7 @@ module.exports = grammar({
     $._newline,
   ],
 
-  extras: $ => [
+  extras: _ => [
     /[ \t]/,  // Allow spaces and tabs as whitespace, but NOT newlines
   ],
 
@@ -15,14 +15,37 @@ module.exports = grammar({
     source_file: $ => repeat($._item),
 
     _item: $ => choice(
+      $._blank_line,
+      $.comment,
       $.transaction,
       $._directive,
-      $.comment,
-      $._blank_line,
     ),
 
     // Blank line (just newline)
     _blank_line: $ => $._newline,
+
+    // Comments
+    comment: $ => choice(
+      $._comment_line,
+      $._comment_block,
+    ),
+
+    _comment_line: $ => seq(
+      $._comment_inline,
+      $._newline,
+    ),
+
+    _comment_block: $ => seq(
+      'comment',
+      $._newline,
+      repeat(
+        seq(/.*/, $._newline)
+      ),
+      'end comment',
+      $._newline,
+    ),
+
+    _comment_inline: _ => /[;#][^\n]*/,
 
     // Transaction: header followed by indented postings/comments
     transaction: $ => seq(
@@ -30,7 +53,6 @@ module.exports = grammar({
       $.indent,
       repeat1(choice(
         $.posting,
-        $.comment_line,
         $.comment,
       )),
       $.dedent,
@@ -42,7 +64,7 @@ module.exports = grammar({
       optional(field('status', $.status)),
       optional(field('code', $.code)),
       field('description', $.description),
-      optional($.comment),
+      optional(alias($._comment_inline, $.comment)),
       $._newline,
     ),
 
@@ -50,52 +72,57 @@ module.exports = grammar({
     posting: $ => seq(
       field('account', $.account),
       optional(field('amount', $.amount)),
-      optional($.comment),
+      optional(alias($._comment_inline, $.comment)),
       $._newline,
     ),
 
     // Directives
-    _directive: $ => choice(
-      $.account_directive,
-      $.commodity_directive,
-      $.include_directive,
-      $.payee_directive,
-      $.tag_directive,
+    _directive: $ => seq(
+      choice(
+        $.account_directive,
+        $.commodity_directive,
+        $.include_directive,
+        $.payee_directive,
+        $.tag_directive,
+      ),
+      optional(alias($._comment_inline, $.comment)),
+      $._newline,
     ),
 
     account_directive: $ => seq(
       'account',
       field('name', $.account),
-      optional($.comment),
-      $._newline,
     ),
 
     commodity_directive: $ => seq(
       'commodity',
-      field('symbol', $.commodity),
-      optional($.comment),
-      $._newline,
+      choice(
+        seq(
+          field('symbol', $.commodity),
+          optional(/[ \t]+/),
+          optional(field('quantity', $.quantity)),
+        ),
+        seq(
+          field('symbol', $.quantity),
+          optional(/[ \t]+/),
+          field('commodity', $.commodity),
+        ),
+      ),
     ),
 
     include_directive: $ => seq(
       'include',
       field('path', $.file_path),
-      optional($.comment),
-      $._newline,
     ),
 
     payee_directive: $ => seq(
       'payee',
       field('name', $.payee_name),
-      optional($.comment),
-      $._newline,
     ),
 
     tag_directive: $ => seq(
       'tag',
       field('name', $.tag_name),
-      optional($.comment),
-      $._newline,
     ),
 
     // Basic tokens
@@ -112,16 +139,10 @@ module.exports = grammar({
     // This allows the optional fields (status, code, effective_date) to match first.
     description: $ => /[^*!=(;\s][^;\n]*/,
 
-    comment: $ => /[;#][^\n]*/,
-
-    comment_line: $ => seq($.comment, $._newline),
 
     effective_date: $ => seq('=', $.date),
 
-    // Account name: For MVP, simplified to not include spaces
-    // This matches most common account names (e.g., Assets:Checking, Expenses:Food:Groceries)
-    // Accounts with spaces (e.g., "Assets:Savings Account") can be added in future versions
-    account: $ => /([^\s;#\n]+(\s[^;\s\n#]+)*?)/,
+    account: $ => /([^\s;#\n]+([ \t][^;\s\n#]+)*?)/,
 
     // Amount: quantity with optional commodity
     amount: $ => choice(
@@ -151,6 +172,7 @@ module.exports = grammar({
       /[A-Z]{3}/,                      // Three-letter codes (USD, EUR, GBP)
       /[A-Za-z][A-Za-z0-9_-]*/,       // Other commodity names
     ),
+
 
     quantity: $ => /\d[\d., \t]*/,      // Number with optional separators (no newlines)
 

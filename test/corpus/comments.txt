@@ -36,6 +36,20 @@ Multiple comments
   (comment))
 
 =====================================
+Block Comment
+=====================================
+
+comment
+This is a comment
+This is still a comment
+end comment
+
+---
+
+(source_file
+  (comment)
+)
+=====================================
 Transaction with inline comment
 =====================================
 

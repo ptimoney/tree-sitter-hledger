@@ -59,6 +59,7 @@ Account names with spaces
         (quantity)))
     (dedent)))
 
+
 =====================================
 Transaction without status marker
 =====================================

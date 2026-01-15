@@ -53,6 +53,20 @@ commodity EUR
     (commodity)))
 
 =====================================
+Commodity directive symbol and amount
+=====================================
+
+commodity $1000
+
+---
+
+(source_file
+  (commodity_directive
+    (commodity)
+    (quantity)
+  )
+)
+=====================================
 Payee directive
 =====================================
 
@@ -150,8 +164,8 @@ payee Walmart  ; big box store
 
 (source_file
   (account_directive
-    (account)
-    (comment))
+    (account))
+    (comment)
   (payee_directive
-    (payee_name)
-    (comment)))
+    (payee_name))
+    (comment))
