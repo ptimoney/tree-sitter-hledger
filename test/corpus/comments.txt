@@ -7,7 +7,7 @@ Line comment with semicolon
 ---
 
 (source_file
-  (comment))
+  (line_comment))
 
 =====================================
 Line comment with hash
@@ -18,7 +18,7 @@ Line comment with hash
 ---
 
 (source_file
-  (comment))
+  (line_comment))
 
 =====================================
 Multiple comments
@@ -31,9 +31,9 @@ Multiple comments
 ---
 
 (source_file
-  (comment)
-  (comment)
-  (comment))
+  (line_comment)
+  (line_comment)
+  (line_comment))
 
 =====================================
 Block Comment
@@ -47,7 +47,7 @@ end comment
 ---
 
 (source_file
-  (comment)
+  (block_comment)
 )
 =====================================
 Transaction with inline comment
@@ -65,14 +65,14 @@ Transaction with inline comment
       (date)
       (status)
       (description)
-      (comment))
+      (inline_comment))
     (indent)
     (posting
       (account)
       (amount
         (commodity)
         (quantity))
-      (comment))
+      (inline_comment))
     (posting
       (account))
     (dedent)))
@@ -95,7 +95,7 @@ Transaction with indented comment line
       (status)
       (description))
     (indent)
-    (comment)
+    (line_comment)
     (posting
       (account)
       (amount
@@ -122,7 +122,7 @@ Mix of transactions and comments
 ---
 
 (source_file
-  (comment)
+  (line_comment)
   (transaction
     (transaction_header
       (date)
@@ -137,7 +137,7 @@ Mix of transactions and comments
     (posting
       (account))
     (dedent))
-  (comment)
+  (line_comment)
   (transaction
     (transaction_header
       (date)

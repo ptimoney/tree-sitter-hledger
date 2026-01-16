@@ -1,9 +1,6 @@
 ; Transaction dates
 (date) @keyword.date
 
-; Effective date
-(effective_date) @keyword.date
-
 ; Status markers
 (status) @keyword.modifier
 
@@ -32,13 +29,18 @@
 
 ; Directive values
 (payee_name) @string
-(tag_name) @tag
 (file_path) @string.special
 
 ; Comments
-(comment) @comment
+(line_comment) @comment
+(block_comment) @comment
+(inline_comment) @comment
 
 ; Operators and punctuation
 "=" @operator
 "(" @punctuation.bracket
 ")" @punctuation.bracket
+
+; Tags
+(tag_name) @tag
+(tag_value) @string

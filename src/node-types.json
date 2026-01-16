@@ -52,12 +52,12 @@
     }
   },
   {
-    "type": "code",
+    "type": "block_comment",
     "named": true,
     "fields": {}
   },
   {
-    "type": "comment",
+    "type": "code",
     "named": true,
     "fields": {}
   },
@@ -107,21 +107,6 @@
     }
   },
   {
-    "type": "effective_date",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "date",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "include_directive",
     "named": true,
     "fields": {
@@ -136,6 +121,26 @@
         ]
       }
     }
+  },
+  {
+    "type": "inline_comment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "line_comment",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "payee_directive",
@@ -176,6 +181,16 @@
             "named": true
           }
         ]
+      },
+      "status": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "status",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
@@ -183,7 +198,7 @@
       "required": false,
       "types": [
         {
-          "type": "comment",
+          "type": "inline_comment",
           "named": true
         }
       ]
@@ -202,7 +217,7 @@
           "named": true
         },
         {
-          "type": "comment",
+          "type": "block_comment",
           "named": true
         },
         {
@@ -211,6 +226,14 @@
         },
         {
           "type": "include_directive",
+          "named": true
+        },
+        {
+          "type": "inline_comment",
+          "named": true
+        },
+        {
+          "type": "line_comment",
           "named": true
         },
         {
@@ -223,6 +246,25 @@
         },
         {
           "type": "transaction",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "tag_name",
+          "named": true
+        },
+        {
+          "type": "tag_value",
           "named": true
         }
       ]
@@ -253,15 +295,15 @@
       "required": true,
       "types": [
         {
-          "type": "comment",
-          "named": true
-        },
-        {
           "type": "dedent",
           "named": true
         },
         {
           "type": "indent",
+          "named": true
+        },
+        {
+          "type": "line_comment",
           "named": true
         },
         {
@@ -309,16 +351,6 @@
           }
         ]
       },
-      "effective_date": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "effective_date",
-            "named": true
-          }
-        ]
-      },
       "status": {
         "multiple": false,
         "required": false,
@@ -335,7 +367,7 @@
       "required": false,
       "types": [
         {
-          "type": "comment",
+          "type": "inline_comment",
           "named": true
         }
       ]
@@ -350,16 +382,28 @@
     "named": false
   },
   {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": ";",
+    "named": false
+  },
+  {
     "type": "=",
     "named": false
   },
   {
     "type": "account",
-    "named": false
+    "named": true
   },
   {
     "type": "account",
-    "named": true
+    "named": false
   },
   {
     "type": "comment",
@@ -423,6 +467,10 @@
   },
   {
     "type": "tag_name",
+    "named": true
+  },
+  {
+    "type": "tag_value",
     "named": true
   }
 ]

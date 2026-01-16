@@ -139,34 +139,6 @@ Transaction with code
     (dedent)))
 
 =====================================
-Transaction with effective date
-=====================================
-
-2024-01-25=2024-01-26 * Payment
-    Expenses:Utilities        $85.40
-    Assets:Checking
-
----
-
-(source_file
-  (transaction
-    (transaction_header
-      (date)
-      (effective_date
-        (date))
-      (status)
-      (description))
-    (indent)
-    (posting
-      (account)
-      (amount
-        (commodity)
-        (quantity)))
-    (posting
-      (account))
-    (dedent)))
-
-=====================================
 Transaction with commodity on right
 =====================================
 
@@ -208,7 +180,7 @@ Transaction with comment
       (date)
       (status)
       (description)
-      (comment))
+      (inline_comment))
     (indent)
     (posting
       (account)
@@ -259,6 +231,163 @@ Multiple transactions
       (amount
         (commodity)
         (quantity)))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Transaction header with tag
+=====================================
+
+2024-02-01 * Groceries  ; category:food
+    Expenses:Food        $50
+    Assets:Cash
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description)
+      (inline_comment
+        (tag
+          (tag_name)
+          (tag_value))))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Posting with inline comment and tag
+=====================================
+
+2024-02-02 * Shopping
+    Expenses:Clothes     $75.00  ; item:shirt
+    Assets:Checking
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity))
+      (inline_comment
+        (tag
+          (tag_name)
+          (tag_value))))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Transaction with multiple tags
+=====================================
+
+2024-02-03 * Business Lunch  ; client:acme, project:consulting
+    Expenses:Meals       $45.00
+    Assets:Business
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description)
+      (inline_comment
+        (tag
+          (tag_name)
+          (tag_value))
+        (tag
+          (tag_name)
+          (tag_value))))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Transaction with line comment between postings
+=====================================
+
+2024-02-04 * Utilities
+    ; Monthly electricity bill
+    Expenses:Utilities   $120.00
+    Assets:Checking
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (line_comment)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Transaction with mixed comments and tags
+=====================================
+
+2024-02-05 * Office Supplies  ; vendor:staples
+    ; Restocking printer paper
+    Expenses:Office      $35.00  ; receipt:yes
+    Assets:Petty Cash
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description)
+      (inline_comment
+        (tag
+          (tag_name)
+          (tag_value))))
+    (indent)
+    (line_comment)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity))
+      (inline_comment
+        (tag
+          (tag_name)
+          (tag_value))))
     (posting
       (account))
     (dedent)))

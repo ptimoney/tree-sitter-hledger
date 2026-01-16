@@ -165,7 +165,7 @@ payee Walmart  ; big box store
 (source_file
   (account_directive
     (account))
-    (comment)
+    (inline_comment)
   (payee_directive
     (payee_name))
-    (comment))
+    (inline_comment))

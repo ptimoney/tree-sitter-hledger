@@ -16,7 +16,7 @@ module.exports = grammar({
 
     _item: $ => choice(
       $._blank_line,
-      $.comment,
+      $._comment,
       $.transaction,
       $._directive,
     ),
@@ -25,54 +25,78 @@ module.exports = grammar({
     _blank_line: $ => $._newline,
 
     // Comments
-    comment: $ => choice(
-      $._comment_line,
-      $._comment_block,
+    _comment: $ => choice(
+      $.line_comment,
+      $.block_comment,
     ),
 
-    _comment_line: $ => seq(
-      $._comment_inline,
+    line_comment: $ => seq(
+      /[;#][^\n]*/,
       $._newline,
     ),
 
-    _comment_block: $ => seq(
+    block_comment: $ => seq(
       'comment',
       $._newline,
       repeat(
-        seq(/.*/, $._newline)
+        seq(/[^\n]*/, $._newline)
       ),
       'end comment',
       $._newline,
     ),
 
-    _comment_inline: _ => /[;#][^\n]*/,
+    inline_comment: $ => seq(
+      ';',
+      repeat(
+        choice(
+          $.tag,
+          ',',
+          $._word,  // Non-tag words
+          /:[,\s\n]/,    // Colon followed by separator (not part of a tag)
+        )
+      )
+    ),
+
+    // Word token shared between tag_name and regular comment text
+    _word: _ => /[^,:\s\n]+/,
+
+    tag: $ => seq(
+      alias($._word, $.tag_name),
+      token.immediate(':'),
+      alias(token.immediate(/[^,\s\n]+/), $.tag_value),
+    ),
+
+    tag_name: _ => /[^\s:,\n]+/,
+    tag_value: _ => /[^,\s\n]+/,
 
     // Transaction: header followed by indented postings/comments
     transaction: $ => seq(
       $.transaction_header,
       $.indent,
-      repeat1(choice(
-        $.posting,
-        $.comment,
-      )),
+      repeat1(
+        choice(
+          $.posting,
+          $.line_comment,
+        )
+      ),
       $.dedent,
     ),
 
     transaction_header: $ => seq(
       field('date', $.date),
-      optional(field('effective_date', $.effective_date)),
       optional(field('status', $.status)),
       optional(field('code', $.code)),
       field('description', $.description),
-      optional(alias($._comment_inline, $.comment)),
+      optional($.inline_comment),
       $._newline,
     ),
 
     // Posting: account name with optional amount and comment
     posting: $ => seq(
+      optional(field('status', $.status)),
       field('account', $.account),
       optional(field('amount', $.amount)),
-      optional(alias($._comment_inline, $.comment)),
+      optional($.inline_comment),
       $._newline,
     ),
 
@@ -85,7 +109,7 @@ module.exports = grammar({
         $.payee_directive,
         $.tag_directive,
       ),
-      optional(alias($._comment_inline, $.comment)),
+      optional($.inline_comment),
       $._newline,
     ),
 
@@ -126,6 +150,7 @@ module.exports = grammar({
     ),
 
     // Basic tokens
+    // TODO: Wider date parsing
     date: $ => /\d{4}[-\/]\d{2}[-\/]\d{2}/,
 
     status: $ => token(prec(1, choice('*', '!'))),
@@ -167,6 +192,7 @@ module.exports = grammar({
       ),
     ),
 
+    // TODO: widen the possible currecy symbols 
     commodity: $ => choice(
       /[\$£€¥]/,                       // Common currency symbols
       /[A-Z]{3}/,                      // Three-letter codes (USD, EUR, GBP)
@@ -182,7 +208,5 @@ module.exports = grammar({
     // Payee name
     payee_name: $ => /[^;\n]+/,
 
-    // Tag name
-    tag_name: $ => /[a-zA-Z][a-zA-Z0-9_-]*/,
   }
 });
