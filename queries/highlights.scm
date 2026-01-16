@@ -38,9 +38,11 @@
 
 ; Operators and punctuation
 "=" @operator
+"@" @operator
+"@@" @operator
 "(" @punctuation.bracket
 ")" @punctuation.bracket
 
 ; Tags
 (tag_name) @tag
-(tag_value) @string
+(tag_value) @property

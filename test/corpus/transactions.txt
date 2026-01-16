@@ -391,3 +391,161 @@ Transaction with mixed comments and tags
     (posting
       (account))
     (dedent)))
+
+=====================================
+Posting with unit cost
+=====================================
+
+2024-03-01 * Currency Exchange
+    Assets:EUR  100 EUR @ $1.10
+    Assets:USD
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (quantity)
+        (commodity))
+      (cost
+        (amount
+          (commodity)
+          (quantity))))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Posting with total cost
+=====================================
+
+2024-03-02 * Stock Purchase
+    Assets:Stock  10 AAPL @@ $1500
+    Assets:Cash
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (quantity)
+        (commodity))
+      (cost
+        (amount
+          (commodity)
+          (quantity))))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Posting with balance assertion
+=====================================
+
+2024-03-03 * Deposit
+    Assets:Checking  $500 = $2500
+    Income:Salary
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity))
+      (assertion
+        (amount
+          (commodity)
+          (quantity))))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Posting with cost and assertion
+=====================================
+
+2024-03-04 * Buy Foreign Currency
+    Assets:EUR  100 EUR @ $1.10 = 500 EUR
+    Assets:USD
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (quantity)
+        (commodity))
+      (cost
+        (amount
+          (commodity)
+          (quantity)))
+      (assertion
+        (amount
+          (quantity)
+          (commodity))))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Posting with cost and comment
+=====================================
+
+2024-03-05 * Exchange with Note
+    Assets:GBP  50 GBP @ $1.25  ; rate:market
+    Assets:USD
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (quantity)
+        (commodity))
+      (cost
+        (amount
+          (commodity)
+          (quantity)))
+      (inline_comment
+        (tag
+          (tag_name)
+          (tag_value))))
+    (posting
+      (account))
+    (dedent)))

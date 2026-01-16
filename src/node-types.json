@@ -52,6 +52,21 @@
     }
   },
   {
+    "type": "assertion",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "amount",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "block_comment",
     "named": true,
     "fields": {}
@@ -104,6 +119,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "cost",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "amount",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -178,6 +208,26 @@
         "types": [
           {
             "type": "amount",
+            "named": true
+          }
+        ]
+      },
+      "assertion": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "assertion",
+            "named": true
+          }
+        ]
+      },
+      "cost": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "cost",
             "named": true
           }
         ]
@@ -398,12 +448,20 @@
     "named": false
   },
   {
-    "type": "account",
-    "named": true
+    "type": "@",
+    "named": false
+  },
+  {
+    "type": "@@",
+    "named": false
   },
   {
     "type": "account",
     "named": false
+  },
+  {
+    "type": "account",
+    "named": true
   },
   {
     "type": "comment",

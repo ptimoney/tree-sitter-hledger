@@ -96,8 +96,23 @@ module.exports = grammar({
       optional(field('status', $.status)),
       field('account', $.account),
       optional(field('amount', $.amount)),
+      optional(field('cost', $.cost)),
+      optional(field('assertion', $.assertion)),
       optional($.inline_comment),
       $._newline,
+    ),
+
+    cost: $ => seq(
+      choice(
+        '@',
+        '@@',
+      ),
+      $.amount,
+    ),
+
+    assertion: $ => seq(
+      '=',
+      $.amount,
     ),
 
     // Directives
@@ -164,8 +179,6 @@ module.exports = grammar({
     // This allows the optional fields (status, code, effective_date) to match first.
     description: $ => /[^*!=(;\s][^;\n]*/,
 
-
-    effective_date: $ => seq('=', $.date),
 
     account: $ => /([^\s;#\n]+([ \t][^;\s\n#]+)*?)/,
 
