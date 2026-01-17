@@ -549,3 +549,278 @@ Posting with cost and comment
     (posting
       (account))
     (dedent)))
+
+=====================================
+Amount with sign after commodity
+=====================================
+
+2024-04-01 * Withdrawal
+    Assets:Cash      $-50.00
+    Assets:Checking  $+50.00
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (sign)
+        (quantity)))
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (sign)
+        (quantity)))
+    (dedent)))
+
+=====================================
+Various currency symbols
+=====================================
+
+2024-04-02 * International
+    Expenses:Travel  €100.00
+    Expenses:Food    £50.00
+    Expenses:Other   ¥1000
+    Assets:Cash
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Quoted commodity symbol
+=====================================
+
+2024-04-03 * Stock Purchase
+    Assets:Brokerage  10 "AAPL US Equity" @ $150
+    Assets:Cash
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (quantity)
+        (commodity))
+      (cost
+        (amount
+          (commodity)
+          (quantity))))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Mixed amount formats
+=====================================
+
+2024-04-04 * Various Formats
+    Expenses:A       $100
+    Expenses:B       -$50
+    Expenses:C       $-25
+    Expenses:D       100 USD
+    Assets:Cash
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account)
+      (amount
+        (sign)
+        (commodity)
+        (quantity)))
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (sign)
+        (quantity)))
+    (posting
+      (account)
+      (amount
+        (quantity)
+        (commodity)))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Date with dot separator
+=====================================
+
+2024.01.15 * Dot Separator
+    Expenses:Food  $50
+    Assets:Cash
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Date without leading zeros
+=====================================
+
+2024-1-5 * Single Digits
+    Expenses:Food  $50
+    Assets:Cash
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Date without year
+=====================================
+
+01-15 * No Year
+    Expenses:Food  $50
+    Assets:Cash
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Date without year and without leading zeros
+=====================================
+
+1/5 * Minimal Date
+    Expenses:Food  $50
+    Assets:Cash
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
+Date with dot separator without year
+=====================================
+
+12.25 * Holiday
+    Expenses:Gifts  $100
+    Assets:Cash
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (posting
+      (account))
+    (dedent)))

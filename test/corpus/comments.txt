@@ -106,6 +106,33 @@ Transaction with indented comment line
     (dedent)))
 
 =====================================
+Inline comment containing word "comment"
+=====================================
+
+2024-01-05 * Test
+    Expenses:Food  $50  ; this is a comment
+    Assets:Cash
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity))
+      (inline_comment))
+    (posting
+      (account))
+    (dedent)))
+
+=====================================
 Mix of transactions and comments
 =====================================
 

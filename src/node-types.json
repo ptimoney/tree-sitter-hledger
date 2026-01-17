@@ -137,6 +137,11 @@
     }
   },
   {
+    "type": "date",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "include_directive",
     "named": true,
     "fields": {
@@ -472,16 +477,16 @@
     "named": false
   },
   {
-    "type": "date",
-    "named": true
-  },
-  {
     "type": "dedent",
     "named": true
   },
   {
     "type": "description",
     "named": true
+  },
+  {
+    "type": "end",
+    "named": false
   },
   {
     "type": "end comment",

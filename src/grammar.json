@@ -121,6 +121,14 @@
                 "name": "_word"
               },
               {
+                "type": "STRING",
+                "value": "comment"
+              },
+              {
+                "type": "STRING",
+                "value": "end"
+              },
+              {
                 "type": "PATTERN",
                 "value": ":[,\\s\\n]"
               }
@@ -607,8 +615,17 @@
       ]
     },
     "date": {
-      "type": "PATTERN",
-      "value": "\\d{4}[-\\/]\\d{2}[-\\/]\\d{2}"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "\\d{4}[-\\/.]\\d{1,2}[-\\/.]\\d{1,2}"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\d{1,2}[-\\/.]\\d{1,2}"
+        }
+      ]
     },
     "status": {
       "type": "TOKEN",
@@ -731,6 +748,55 @@
           "type": "SEQ",
           "members": [
             {
+              "type": "FIELD",
+              "name": "commodity",
+              "content": {
+                "type": "SYMBOL",
+                "name": "commodity"
+              }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "sign",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "sign"
+                  }
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "\\s+"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "FIELD",
+              "name": "quantity",
+              "content": {
+                "type": "SYMBOL",
+                "name": "quantity"
+              }
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
               "type": "CHOICE",
               "members": [
                 {
@@ -812,15 +878,11 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "[\\$£€¥]"
+          "value": "[^!\"%(){}:;'~<>,.\\/\\\\0-9\\s\\-+]+"
         },
         {
           "type": "PATTERN",
-          "value": "[A-Z]{3}"
-        },
-        {
-          "type": "PATTERN",
-          "value": "[A-Za-z][A-Za-z0-9_-]*"
+          "value": "\"[^\\n]+\""
         }
       ]
     },

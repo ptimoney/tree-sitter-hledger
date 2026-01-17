@@ -52,6 +52,8 @@ module.exports = grammar({
           $.tag,
           ',',
           $._word,  // Non-tag words
+          'comment',     // Allow block_comment keyword as text
+          'end',         // Allow 'end' keyword as text
           /:[,\s\n]/,    // Colon followed by separator (not part of a tag)
         )
       )
@@ -165,29 +167,38 @@ module.exports = grammar({
     ),
 
     // Basic tokens
-    // TODO: Wider date parsing
-    date: $ => /\d{4}[-\/]\d{2}[-\/]\d{2}/,
+    date: _ => choice(
+      /\d{4}[-\/.]\d{1,2}[-\/.]\d{1,2}/,
+      /\d{1,2}[-\/.]\d{1,2}/,
+    ),
 
-    status: $ => token(prec(1, choice('*', '!'))),
+    status: _ => token(prec(1, choice('*', '!'))),
 
-    sign: $ => token(choice('+', '-')),
+    sign: _ => token(choice('+', '-')),
 
-    code: $ => prec(1, seq('(', /[^)]+/, ')')),
+    code: _ => prec(1, seq('(', /[^)]+/, ')')),
 
     // Description: Cannot start with status (*, !), code start parenthesis '(', 
     // effective date equals '=', or be empty/semicolon.
     // This allows the optional fields (status, code, effective_date) to match first.
-    description: $ => /[^*!=(;\s][^;\n]*/,
+    description: _ => /[^*!=(;\s][^;\n]*/,
 
 
-    account: $ => /([^\s;#\n]+([ \t][^;\s\n#]+)*?)/,
+    account: _ => /([^\s;#\n]+([ \t][^;\s\n#]+)*?)/,
 
     // Amount: quantity with optional commodity
     amount: $ => choice(
-      // Symbol on left: $100, -$100, $ 100
+      // Symbol on left, negative before symbol: $100, -$100, $ 100
       seq(
         optional(field('sign', $.sign)),
         field('commodity', $.commodity),
+        optional(/\s+/),
+        field('quantity', $.quantity),
+      ),
+      // Symbol on left, negative after symbol: $-100, $+100,
+      seq(
+        field('commodity', $.commodity),
+        optional(field('sign', $.sign)),
         optional(/\s+/),
         field('quantity', $.quantity),
       ),
@@ -205,21 +216,21 @@ module.exports = grammar({
       ),
     ),
 
-    // TODO: widen the possible currecy symbols 
-    commodity: $ => choice(
-      /[\$£€¥]/,                       // Common currency symbols
-      /[A-Z]{3}/,                      // Three-letter codes (USD, EUR, GBP)
-      /[A-Za-z][A-Za-z0-9_-]*/,       // Other commodity names
+    // Commodity symbols - excludes digits, whitespace, and special characters
+    // Also excludes +- so they can be parsed as signs
+    commodity: _ => choice(
+      /[^!"%(){}:;'~<>,.\/\\0-9\s\-+]+/,
+      /"[^\n]+"/,
     ),
 
 
-    quantity: $ => /\d[\d., \t]*/,      // Number with optional separators (no newlines)
+    quantity: _ => /\d[\d., \t]*/,      // Number with optional separators (no newlines)
 
     // File path for include directive
-    file_path: $ => /[^\s;#\n]+/,
+    file_path: _ => /[^\s;#\n]+/,
 
     // Payee name
-    payee_name: $ => /[^;\n]+/,
+    payee_name: _ => /[^;\n]+/,
 
   }
 });
