@@ -15,20 +15,51 @@ This parser complements the existing [hledger-lsp](../hledger-lsp) language serv
 
 ## Features
 
-**Current Support (MVP):**
-- Basic transactions (date, status, description, postings)
-- Common directives (account, commodity, include, payee, tag)
-- Comments (`;` and `#` styles)
-- Basic amount parsing (commodity symbols, quantities)
-- Indentation-based structure
+**Transactions:**
+- Dates with flexible formats (`2024-01-15`, `2024.1.5`, `01/15`, `1-5`)
+- Status markers (`*` cleared, `!` pending)
+- Transaction codes (`(#123)`)
+- Descriptions
+- Inline comments with tags (`; category:food, project:home`)
+
+**Postings:**
+- Account names (including spaces)
+- Amounts with various formats:
+  - Symbol on left: `$100`, `-$50`, `$-25`
+  - Symbol on right: `100 USD`, `-50 EUR`
+  - No symbol: `100`, `-50.00`
+- Cost notation: `@ $1.50` (unit cost), `@@ $150` (total cost)
+- Balance assertions: `= $1000`
+- Inline comments with tags
+
+**Commodities:**
+- Currency symbols: `$`, `€`, `£`, `¥`, etc.
+- Alphabetic codes: `USD`, `EUR`, `BTC`
+- Quoted symbols: `"AAPL US Equity"`
+
+**Directives:**
+- `account` - Account declarations
+- `commodity` - Commodity declarations
+- `include` - File includes
+- `payee` - Payee declarations
+- `tag` - Tag declarations
+
+**Comments:**
+- Line comments: `;` or `#`
+- Block comments: `comment` ... `end comment`
+- Inline comments with tag parsing
+
+**Structure:**
+- Indentation-based posting blocks
+- Code folding support
 - Syntax highlighting queries
 
-**Future Enhancements:**
-- Balance assertions (`= $100`)
-- Cost notation (`@ $1.50`, `@@ $150`)
-- Account names with spaces
-- Advanced directives (alias, automated transactions)
-- Multi-line commodity directives
+## Future Enhancements
+
+- Automated transaction rules (`=`)
+- Periodic transactions (`~`)
+- Additional directives (alias, apply account, etc.)
+- Multi-line commodity format blocks
 
 ## Installation
 
@@ -102,56 +133,60 @@ npm test
 # Generate parser from grammar
 npm run build
 
-# Watch mode for development
-npm run watch
-
 # Test parser
 npm test
 ```
 
 ## Grammar Overview
 
-The grammar recognizes:
-
 **Transactions:**
 ```hledger
-2024-01-05 * Groceries
+2024-01-05 * Groceries  ; category:food
     Expenses:Food:Groceries    $50.00
-    Assets:Checking
+    Assets:Checking           -$50.00  ; cleared:yes
+```
+
+**Costs and Assertions:**
+```hledger
+2024-01-10 * Currency Exchange
+    Assets:EUR    100 EUR @ $1.10
+    Assets:USD   -$110.00 = $500.00
 ```
 
 **Directives:**
 ```hledger
 account Assets:Checking
-commodity $
+commodity $1000.00
 payee Whole Foods
 include expenses.journal
 ```
 
 **Comments:**
 ```hledger
-; This is a comment
-# Another comment style
+; Line comment
+# Another style
+
+comment
+This is a block comment.
+Multiple lines are supported.
+end comment
 ```
 
 ## Syntax Highlighting
 
 The parser includes syntax highlighting queries in `queries/highlights.scm`:
 
-- **Dates** - keyword.date
-- **Status markers** (`*`, `!`) - keyword.modifier
-- **Account names** - type
-- **Amounts** - number (quantity) + constant (commodity)
-- **Directives** - keyword.directive / keyword.import
-- **Comments** - comment
-
-## Limitations (MVP)
-
-- Account names cannot contain spaces (e.g., `Assets:Savings Account` not yet supported)
-- Balance assertions and cost notation are not yet implemented
-- Complex amount formats with various spacing may not parse correctly
-
-These limitations will be addressed in future versions.
+| Element | Highlight Group |
+|---------|----------------|
+| Dates | `@keyword.date` |
+| Status markers (`*`, `!`) | `@keyword.modifier` |
+| Account names | `@type` |
+| Quantities | `@number` |
+| Commodities | `@constant` |
+| Directives | `@keyword.directive` |
+| Comments | `@comment` |
+| Tags | `@tag` / `@property` |
+| Operators (`@`, `=`) | `@operator` |
 
 ## Related Projects
 
