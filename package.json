@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "description": "Tree-sitter grammar for hledger journal files",
   "main": "bindings/node",
+  "types": "bindings/node",
   "keywords": [
     "tree-sitter",
     "parser",
     "hledger",
     "accounting",
-    "plaintext-accounting"
+    "plaintext-accounting",
+    "ledger",
+    "finance"
   ],
   "author": "Patrick Timoney",
   "license": "MIT",
@@ -16,6 +19,19 @@
     "type": "git",
     "url": "https://github.com/ptimoney/tree-sitter-hledger"
   },
+  "bugs": {
+    "url": "https://github.com/ptimoney/tree-sitter-hledger/issues"
+  },
+  "homepage": "https://github.com/ptimoney/tree-sitter-hledger#readme",
+  "files": [
+    "grammar.js",
+    "binding.gyp",
+    "prebuilds/**",
+    "bindings/node/*",
+    "queries/**",
+    "src/**",
+    "*.wasm"
+  ],
   "scripts": {
     "build": "tree-sitter generate && node-gyp rebuild",
     "test": "tree-sitter test",
