@@ -16,7 +16,10 @@ This parser complements the existing [hledger-lsp](../hledger-lsp) language serv
 ## Features
 
 **Transactions:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> b443bb4efa1e9067e6620166b32973d55b3df19a
 - Dates with flexible formats (`2024-01-15`, `2024.1.5`, `01/15`, `1-5`)
 - Status markers (`*` cleared, `!` pending)
 - Transaction codes (`(#123)`)
@@ -24,7 +27,10 @@ This parser complements the existing [hledger-lsp](../hledger-lsp) language serv
 - Inline comments with tags (`; category:food, project:home`)
 
 **Postings:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> b443bb4efa1e9067e6620166b32973d55b3df19a
 - Account names (including spaces)
 - Amounts with various formats:
   - Symbol on left: `$100`, `-$50`, `$-25`
@@ -35,13 +41,19 @@ This parser complements the existing [hledger-lsp](../hledger-lsp) language serv
 - Inline comments with tags
 
 **Commodities:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> b443bb4efa1e9067e6620166b32973d55b3df19a
 - Currency symbols: `$`, `€`, `£`, `¥`, etc.
 - Alphabetic codes: `USD`, `EUR`, `BTC`
 - Quoted symbols: `"AAPL US Equity"`
 
 **Directives:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> b443bb4efa1e9067e6620166b32973d55b3df19a
 - `account` - Account declarations
 - `commodity` - Commodity declarations
 - `include` - File includes
@@ -49,18 +61,32 @@ This parser complements the existing [hledger-lsp](../hledger-lsp) language serv
 - `tag` - Tag declarations
 
 **Comments:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> b443bb4efa1e9067e6620166b32973d55b3df19a
 - Line comments: `;` or `#`
 - Block comments: `comment` ... `end comment`
 - Inline comments with tag parsing
 
 **Structure:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> b443bb4efa1e9067e6620166b32973d55b3df19a
 - Indentation-based posting blocks
 - Code folding support
 - Syntax highlighting queries
 
 ## Future Enhancements
+<<<<<<< HEAD
+=======
+
+- Automated transaction rules (`=`)
+- Periodic transactions (`~`)
+- Additional directives (alias, apply account, etc.)
+- Multi-line commodity format blocks
+>>>>>>> b443bb4efa1e9067e6620166b32973d55b3df19a
 
 - Automated transaction rules (`=`)
 - Periodic transactions (`~`)
@@ -102,7 +128,10 @@ npm test
 ```
 
 **Costs and Assertions:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> b443bb4efa1e9067e6620166b32973d55b3df19a
 ```hledger
 2024-01-10 * Currency Exchange
     Assets:EUR    100 EUR @ $1.10
