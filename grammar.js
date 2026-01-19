@@ -125,10 +125,57 @@ module.exports = grammar({
         $.include_directive,
         $.payee_directive,
         $.tag_directive,
+        $.alias_directive,
+        $.decimal_mark_directive,
+        $.market_price_directive,
+        $.apply_account_directive,
+        $.default_commodity_directive,
+        $.default_year_directive,
       ),
       optional($.inline_comment),
       $._newline,
     ),
+
+    alias_directive: $ => seq(
+      'alias',
+      field('old_name', $.account),
+      '=',
+      field('new_name', $.account),
+    ),
+
+    decimal_mark_directive: $ => seq(
+      'decimal-mark',
+      field('decimal_mark', $.decimal_mark),
+    ),
+
+    decimal_mark: _$ => /[.,]/,
+
+    market_price_directive: $ => seq(
+      'P',
+      field('date', $.date),
+      field('commodity_1_symbol', $.commodity),
+      field('commodity_2_amount', $.amount),
+    ),
+
+    default_commodity_directive: $ => seq(
+      'D',
+      /[ \t]+/,
+      field('default_commodity', $.amount),
+    ),
+
+    default_year_directive: _$ => seq(
+      'Y',
+      /[ \t]+/,
+      field('default_year', /\d{4}/),
+    ),
+
+    apply_account_directive: $ => seq(
+      'apply account',
+      /[ \t]+/,
+      field('account', $.account),
+    ),
+
+
 
     account_directive: $ => seq(
       'account',
@@ -184,7 +231,7 @@ module.exports = grammar({
     description: _ => /[^*!=(;\s][^;\n]*/,
 
 
-    account: _ => /([^\s;#\n]+([ \t][^;\s\n#]+)*?)/,
+    account: _ => /([^\s;#\n=]+([ \t][^;\s\n#=]+)*?)/,
 
     // Amount: quantity with optional commodity
     amount: $ => choice(

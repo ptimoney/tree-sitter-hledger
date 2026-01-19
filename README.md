@@ -16,6 +16,7 @@ This parser complements the existing [hledger-lsp](../hledger-lsp) language serv
 ## Features
 
 **Transactions:**
+
 - Dates with flexible formats (`2024-01-15`, `2024.1.5`, `01/15`, `1-5`)
 - Status markers (`*` cleared, `!` pending)
 - Transaction codes (`(#123)`)
@@ -23,6 +24,7 @@ This parser complements the existing [hledger-lsp](../hledger-lsp) language serv
 - Inline comments with tags (`; category:food, project:home`)
 
 **Postings:**
+
 - Account names (including spaces)
 - Amounts with various formats:
   - Symbol on left: `$100`, `-$50`, `$-25`
@@ -33,31 +35,38 @@ This parser complements the existing [hledger-lsp](../hledger-lsp) language serv
 - Inline comments with tags
 
 **Commodities:**
+
 - Currency symbols: `$`, `€`, `£`, `¥`, etc.
 - Alphabetic codes: `USD`, `EUR`, `BTC`
 - Quoted symbols: `"AAPL US Equity"`
 
 **Directives:**
+
 - `account` - Account declarations
 - `commodity` - Commodity declarations
 - `include` - File includes
 - `payee` - Payee declarations
 - `tag` - Tag declarations
+- `P` - Market price declarations
+- `alias` - Alias declarations
+- `decimal-mark` - Decimal mark declarations
 
 **Comments:**
+
 - Line comments: `;` or `#`
 - Block comments: `comment` ... `end comment`
 - Inline comments with tag parsing
 
 **Structure:**
+
 - Indentation-based posting blocks
 - Code folding support
 - Syntax highlighting queries
 
 ## Future Enhancements
+
 - Automated transaction rules (`=`)
 - Periodic transactions (`~`)
-- Additional directives (alias, apply account, etc.)
 - Multi-line commodity format blocks
 
 ## Usage
@@ -87,6 +96,7 @@ npm test
 ## Grammar Overview
 
 **Transactions:**
+
 ```hledger
 2024-01-05 * Groceries  ; category:food
     Expenses:Food:Groceries    $50.00
@@ -94,6 +104,7 @@ npm test
 ```
 
 **Costs and Assertions:**
+
 ```hledger
 2024-01-10 * Currency Exchange
     Assets:EUR    100 EUR @ $1.10
@@ -101,6 +112,7 @@ npm test
 ```
 
 **Directives:**
+
 ```hledger
 account Assets:Checking
 commodity $1000.00
@@ -109,6 +121,7 @@ include expenses.journal
 ```
 
 **Comments:**
+
 ```hledger
 ; Line comment
 # Another style
