@@ -1,4 +1,5 @@
 {
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "hledger",
   "rules": {
     "source_file": {
@@ -437,6 +438,30 @@
             {
               "type": "SYMBOL",
               "name": "tag_directive"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "alias_directive"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "decimal_mark_directive"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "market_price_directive"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "apply_account_directive"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "default_commodity_directive"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "default_year_directive"
             }
           ]
         },
@@ -455,6 +480,152 @@
         {
           "type": "SYMBOL",
           "name": "_newline"
+        }
+      ]
+    },
+    "alias_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "alias"
+        },
+        {
+          "type": "FIELD",
+          "name": "old_name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "account"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "new_name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "account"
+          }
+        }
+      ]
+    },
+    "decimal_mark_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "decimal-mark"
+        },
+        {
+          "type": "FIELD",
+          "name": "decimal_mark",
+          "content": {
+            "type": "SYMBOL",
+            "name": "decimal_mark"
+          }
+        }
+      ]
+    },
+    "decimal_mark": {
+      "type": "PATTERN",
+      "value": "[.,]"
+    },
+    "market_price_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "P"
+        },
+        {
+          "type": "FIELD",
+          "name": "date",
+          "content": {
+            "type": "SYMBOL",
+            "name": "date"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "commodity_1_symbol",
+          "content": {
+            "type": "SYMBOL",
+            "name": "commodity"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "commodity_2_amount",
+          "content": {
+            "type": "SYMBOL",
+            "name": "amount"
+          }
+        }
+      ]
+    },
+    "default_commodity_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "D"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[ \\t]+"
+        },
+        {
+          "type": "FIELD",
+          "name": "default_commodity",
+          "content": {
+            "type": "SYMBOL",
+            "name": "amount"
+          }
+        }
+      ]
+    },
+    "default_year_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "Y"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[ \\t]+"
+        },
+        {
+          "type": "FIELD",
+          "name": "default_year",
+          "content": {
+            "type": "PATTERN",
+            "value": "\\d{4}"
+          }
+        }
+      ]
+    },
+    "apply_account_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "apply account"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[ \\t]+"
+        },
+        {
+          "type": "FIELD",
+          "name": "account",
+          "content": {
+            "type": "SYMBOL",
+            "name": "account"
+          }
         }
       ]
     },
@@ -690,7 +861,7 @@
     },
     "account": {
       "type": "PATTERN",
-      "value": "([^\\s;#\\n]+([ \\t][^;\\s\\n#]+)*?)"
+      "value": "([^\\s;#\\n=]+([ \\t][^;\\s\\n#=]+)*?)"
     },
     "amount": {
       "type": "CHOICE",
@@ -922,6 +1093,6 @@
     }
   ],
   "inline": [],
-  "supertypes": []
+  "supertypes": [],
+  "reserved": {}
 }
-

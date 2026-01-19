@@ -169,3 +169,262 @@ payee Walmart  ; big box store
   (payee_directive
     (payee_name))
     (inline_comment))
+
+=====================================
+Alias directive
+=====================================
+
+alias Debit Card=Assets:Bank:Debit Card
+
+---
+
+(source_file
+  (alias_directive
+    (account)
+    (account)))
+
+=====================================
+Multiple alias directives
+=====================================
+
+alias Savings=Assets:Savings Account
+alias Checking=Assets:Checking Account
+alias Expenses:Food:Groceries=Groceries
+
+---
+
+(source_file
+  (alias_directive
+    (account)
+    (account))
+  (alias_directive
+    (account)
+    (account))
+  (alias_directive
+    (account)
+    (account)))
+
+=====================================
+Decimal mark directive with period
+=====================================
+
+decimal-mark .
+
+---
+
+(source_file
+  (decimal_mark_directive
+    (decimal_mark)))
+
+=====================================
+Decimal mark directive with comma
+=====================================
+
+decimal-mark ,
+
+---
+
+(source_file
+  (decimal_mark_directive
+    (decimal_mark)))
+
+=====================================
+Market price directive
+=====================================
+
+P 2020-01-01 EUR 1.10 USD
+
+---
+
+(source_file
+  (market_price_directive
+    (date)
+    (commodity)
+    (amount
+      (quantity)
+      (commodity)
+    )
+  )
+)
+
+=====================================
+Multiple market price directives
+=====================================
+
+P 2020-01-01 EUR 1.10 USD
+P 2020-02-01 GBP 1.25 USD
+P 2020-03-01 JPY 0.009 USD
+
+---
+
+(source_file
+  (market_price_directive
+    (date)
+    (commodity)
+    (amount
+      (quantity)
+      (commodity)
+    ))
+  (market_price_directive
+    (date)
+    (commodity)
+    (amount
+      (quantity)
+      (commodity)
+    ))
+  (market_price_directive
+    (date)
+    (commodity)
+     (amount
+      (quantity)
+      (commodity)
+    )))
+
+=====================================
+Market price directive with comment
+=====================================
+
+P 2020-01-01 EUR 1.10 USD ; official rate
+
+---
+
+(source_file
+  (market_price_directive
+    (date)
+    (commodity)
+    (amount
+      (quantity)
+      (commodity)
+    ))
+  (inline_comment))
+
+=====================================
+Alias directive with comment
+=====================================
+
+alias Debit=Assets:Bank:Debit ; my debit card
+
+---
+
+(source_file
+  (alias_directive
+    (account)
+    (account))
+  (inline_comment))
+
+=====================================
+Default year directive
+=====================================
+
+Y 2020
+
+---
+
+(source_file
+  (default_year_directive))
+
+=====================================
+Multiple default year directives
+=====================================
+
+Y 2020
+Y 2021
+
+---
+
+(source_file
+  (default_year_directive)
+  (default_year_directive))
+
+=====================================
+Default commodity directive
+=====================================
+
+D $1,000.00
+
+---
+
+(source_file
+  (default_commodity_directive
+    (amount
+      (commodity)
+      (quantity))))
+
+=====================================
+Default commodity directive with EUR
+=====================================
+
+D €1.000,50
+
+---
+
+(source_file
+  (default_commodity_directive
+    (amount
+      (commodity)
+      (quantity))))
+
+=====================================
+Apply account directive
+=====================================
+
+apply account Assets:Checking
+
+---
+
+(source_file
+  (apply_account_directive
+    (account)))
+
+=====================================
+Multiple apply account directives
+=====================================
+
+apply account Assets:Checking
+apply account Expenses:Food
+
+---
+
+(source_file
+  (apply_account_directive
+    (account))
+  (apply_account_directive
+    (account)))
+
+=====================================
+Apply account directive with comment
+=====================================
+
+apply account Assets:Checking ; checking account
+
+---
+
+(source_file
+  (apply_account_directive
+    (account))
+  (inline_comment))
+
+=====================================
+Mixed directives with new ones
+=====================================
+
+account Assets:Cash
+D $1,000.00
+Y 2020
+apply account Assets:Cash
+payee Walmart
+
+---
+
+(source_file
+  (account_directive
+    (account))
+  (default_commodity_directive
+    (amount
+      (commodity)
+      (quantity)))
+  (default_year_directive)
+  (apply_account_directive
+    (account))
+  (payee_directive
+    (payee_name)))

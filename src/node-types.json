@@ -16,6 +16,32 @@
     }
   },
   {
+    "type": "alias_directive",
+    "named": true,
+    "fields": {
+      "new_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "account",
+            "named": true
+          }
+        ]
+      },
+      "old_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "account",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "amount",
     "named": true,
     "fields": {
@@ -45,6 +71,22 @@
         "types": [
           {
             "type": "sign",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "apply_account_directive",
+    "named": true,
+    "fields": {
+      "account": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "account",
             "named": true
           }
         ]
@@ -142,6 +184,43 @@
     "fields": {}
   },
   {
+    "type": "decimal_mark_directive",
+    "named": true,
+    "fields": {
+      "decimal_mark": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "decimal_mark",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "default_commodity_directive",
+    "named": true,
+    "fields": {
+      "default_commodity": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "amount",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "default_year_directive",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "include_directive",
     "named": true,
     "fields": {
@@ -176,6 +255,42 @@
     "type": "line_comment",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "market_price_directive",
+    "named": true,
+    "fields": {
+      "commodity_1_symbol": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "commodity",
+            "named": true
+          }
+        ]
+      },
+      "commodity_2_amount": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "amount",
+            "named": true
+          }
+        ]
+      },
+      "date": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "date",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "payee_directive",
@@ -262,6 +377,7 @@
   {
     "type": "source_file",
     "named": true,
+    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -272,11 +388,31 @@
           "named": true
         },
         {
+          "type": "alias_directive",
+          "named": true
+        },
+        {
+          "type": "apply_account_directive",
+          "named": true
+        },
+        {
           "type": "block_comment",
           "named": true
         },
         {
           "type": "commodity_directive",
+          "named": true
+        },
+        {
+          "type": "decimal_mark_directive",
+          "named": true
+        },
+        {
+          "type": "default_commodity_directive",
+          "named": true
+        },
+        {
+          "type": "default_year_directive",
           "named": true
         },
         {
@@ -289,6 +425,10 @@
         },
         {
           "type": "line_comment",
+          "named": true
+        },
+        {
+          "type": "market_price_directive",
           "named": true
         },
         {
@@ -461,6 +601,18 @@
     "named": false
   },
   {
+    "type": "D",
+    "named": false
+  },
+  {
+    "type": "P",
+    "named": false
+  },
+  {
+    "type": "Y",
+    "named": false
+  },
+  {
     "type": "account",
     "named": false
   },
@@ -469,12 +621,28 @@
     "named": true
   },
   {
+    "type": "alias",
+    "named": false
+  },
+  {
+    "type": "apply account",
+    "named": false
+  },
+  {
     "type": "comment",
     "named": false
   },
   {
     "type": "commodity",
     "named": false
+  },
+  {
+    "type": "decimal-mark",
+    "named": false
+  },
+  {
+    "type": "decimal_mark",
+    "named": true
   },
   {
     "type": "dedent",
