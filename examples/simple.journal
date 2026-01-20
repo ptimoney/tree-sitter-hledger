@@ -1,0 +1,10 @@
+; Sample hledger journal file
+
+account Assets:Checking
+account Expenses:Food
+
+commodity $
+
+2024-01-05 * Groceries
+    Expenses:Food                               $ 50.00  
+    Assets:Checking                             
