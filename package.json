@@ -1,58 +1,57 @@
 {
   "name": "tree-sitter-hledger",
-  "version": "0.1.4",
+  "version": "0.0.1",
   "description": "Tree-sitter grammar for hledger journal files",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ptimoney/tree-sitter-hledger.git"
+  },
+  "funding": "",
+  "license": "MIT",
+  "author": {
+    "name": "Patrick Timoney",
+    "url": ""
+  },
   "main": "bindings/node",
   "types": "bindings/node",
   "keywords": [
+    "incremental",
+    "parsing",
     "tree-sitter",
-    "parser",
-    "hledger",
-    "accounting",
-    "plaintext-accounting",
-    "ledger",
-    "finance"
+    "hledger"
   ],
-  "author": "Patrick Timoney",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ptimoney/tree-sitter-hledger"
-  },
-  "bugs": {
-    "url": "https://github.com/ptimoney/tree-sitter-hledger/issues"
-  },
-  "homepage": "https://github.com/ptimoney/tree-sitter-hledger#readme",
   "files": [
     "grammar.js",
+    "tree-sitter.json",
     "binding.gyp",
     "prebuilds/**",
     "bindings/node/*",
-    "queries/**",
+    "queries/*",
     "src/**",
     "*.wasm"
   ],
-  "scripts": {
-    "build": "tree-sitter generate && node-gyp rebuild",
-    "test": "tree-sitter test",
-    "parse": "tree-sitter parse",
-    "watch": "tree-sitter generate --watch"
-  },
   "dependencies": {
-    "nan": "^2.17.0"
+    "node-addon-api": "^8.5.0",
+    "node-gyp-build": "^4.8.4"
   },
   "devDependencies": {
+    "prebuildify": "^6.0.1",
+    "tree-sitter": "^0.25.0",
     "tree-sitter-cli": "^0.26.3"
   },
-  "tree-sitter": [
-    {
-      "scope": "source.hledger",
-      "file-types": [
-        "journal",
-        "hledger"
-      ],
-      "highlights": "queries/highlights.scm",
-      "folds": "queries/folds.scm"
+  "peerDependencies": {
+    "tree-sitter": "^0.25.0"
+  },
+  "peerDependenciesMeta": {
+    "tree-sitter": {
+      "optional": true
     }
-  ]
+  },
+  "scripts": {
+    "install": "node-gyp-build",
+    "prestart": "tree-sitter build --wasm",
+    "start": "tree-sitter playground",
+    "test": "node --test bindings/node/*_test.js"
+  }
 }

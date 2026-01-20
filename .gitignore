@@ -1,24 +1,48 @@
-# Node modules
+# Rust artifacts
+target/
+
+# Node artifacts
+build/
+prebuilds/
 node_modules/
 
-# Build artifacts
-build/
-*.node
+# Swift artifacts
+.build/
 
-# Generated parser files
-# Generated parser files
-# src/parser.c
-# src/tree_sitter/
+# Go artifacts
+_obj/
 
-# Bindings
-bindings/node/build/
+# Python artifacts
+.venv/
+dist/
+*.egg-info
+*.whl
 
-# OS files
-.DS_Store
-*.swp
-*.swo
+# C artifacts
+*.a
+*.so
+*.so.*
+*.dylib
+*.dll
+*.pc
+*.exp
+*.lib
 
-# IDE files
-.vscode/
-.idea/
-*.iml
+# Zig artifacts
+.zig-cache/
+zig-cache/
+zig-out/
+
+# Example dirs
+/examples/*/
+
+# Grammar volatiles
+*.wasm
+*.obj
+*.o
+
+# Archives
+*.tar.gz
+*.tgz
+*.zip
+*.jar

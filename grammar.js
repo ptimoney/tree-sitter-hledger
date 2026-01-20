@@ -1,5 +1,14 @@
-module.exports = grammar({
-  name: 'hledger',
+/**
+ * @file Tree-sitter grammar for hledger journal files
+ * @author Patrick Timoney
+ * @license MIT
+ */
+
+/// <reference types="tree-sitter-cli/dsl" />
+// @ts-check
+
+export default grammar({
+  name: "hledger",
 
   externals: $ => [
     $.indent,
