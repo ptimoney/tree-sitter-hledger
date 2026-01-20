@@ -106,6 +106,37 @@ Transaction with indented comment line
     (dedent)))
 
 =====================================
+Transaction with multiple indented comment lines
+=====================================
+
+2024-01-05 * Groceries
+    ; This is a transaction-level comment
+    ; This is a transaction-level comment
+    Expenses:Food        $50
+    ; This is a transaction-level comment
+    Assets:Cash
+
+---
+
+(source_file
+  (transaction
+    (transaction_header
+      (date)
+      (status)
+      (description))
+    (indent)
+    (line_comment)
+    (line_comment)
+    (posting
+      (account)
+      (amount
+        (commodity)
+        (quantity)))
+    (line_comment)
+    (posting
+      (account))
+    (dedent)))
+=====================================
 Inline comment containing word "comment"
 =====================================
 
