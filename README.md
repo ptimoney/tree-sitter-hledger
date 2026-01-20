@@ -1,5 +1,8 @@
 # tree-sitter-hledger
 
+[![CI](https://github.com/ptimoney/tree-sitter-hledger/actions/workflows/ci.yml/badge.svg)](https://github.com/ptimoney/tree-sitter-hledger/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/tree-sitter-hledger)](https://www.npmjs.com/package/tree-sitter-hledger)
+
 A [Tree-sitter](https://tree-sitter.github.io/tree-sitter/) grammar for [hledger](https://hledger.org/) journal files.
 
 ## Features
@@ -125,6 +128,7 @@ end comment
 ### Syntax Highlighting
 
 The `queries/highlights.scm` file provides highlighting for:
+
 - Dates, status markers, codes
 - Account names, amounts, commodities
 - Directives and their arguments
@@ -133,6 +137,7 @@ The `queries/highlights.scm` file provides highlighting for:
 ### Code Folding
 
 The `queries/folds.scm` file enables folding for:
+
 - Transactions (fold postings)
 - Block comments
 - Consecutive line comments
@@ -163,6 +168,7 @@ npm start              # Opens tree-sitter playground in browser
 ### Test Corpus
 
 Tests are located in `test/corpus/`:
+
 - `transactions.txt` - Transaction parsing
 - `directives.txt` - Directive parsing
 - `comments.txt` - Comment parsing
@@ -170,6 +176,7 @@ Tests are located in `test/corpus/`:
 ## File Types
 
 This grammar recognizes:
+
 - `.journal` files
 - `.hledger` files
 

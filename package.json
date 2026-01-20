@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-hledger",
-  "version": "0.0.1",
+  "version": "0.1.5",
   "description": "Tree-sitter grammar for hledger journal files",
   "type": "module",
   "repository": {
